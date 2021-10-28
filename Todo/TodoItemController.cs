@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using todo_rest_api.Models;
+using todo_rest_api;
 
 namespace todo_rest_api.Controllers
 {
@@ -12,20 +12,17 @@ namespace todo_rest_api.Controllers
     [ApiController]
     public class TodoItemController : ControllerBase
     {
-        static private List<TodoItem> todoItems = new List<TodoItem> {
-                new TodoItem() {Id = 1, Title = "Implement read"},
-                new TodoItem() {Id = 2, Title = "Implement create"}
-            };
-        static private int lastId = 2;
+        private TodoItemService todoItemService;
 
-        public TodoItemController()
+        public TodoItemController(TodoItemService service)
         {
+            this.todoItemService = service;
         }
 
         [HttpGet("")]
         public ActionResult<IEnumerable<TodoItem>> GetTodoItems()
         {
-            return todoItems;
+            return todoItemService.GetAll();
         }
 
         [HttpGet("{id}")]
@@ -40,10 +37,8 @@ namespace todo_rest_api.Controllers
         [HttpPost("")]
         public ActionResult<TodoItem> CreateTodoItem(TodoItem todoItem)
         {
-            todoItem.Id = ++lastId;
-            todoItems.Add(todoItem);
-
-            return Created($"api/todoitem/{todoItem.Id}", todoItem);
+            TodoItem createdItem = todoItemService.Create(todoItem);
+            return Created($"api/todoitem/{createdItem.Id}", createdItem);
         }
 
         [HttpPut("{id}")]

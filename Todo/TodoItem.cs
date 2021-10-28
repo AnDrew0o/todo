@@ -1,8 +1,8 @@
 using System;
 
-namespace todo_rest_api.Models
+namespace todo_rest_api
 {
-public class TodoItem
+    public class TodoItem
     {
         public int Id { get; set; }
         public string Title { get; set; }
