@@ -26,12 +26,16 @@ namespace todo_rest_api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TodoItem>> GetTodoItemById(int id)
+        public ActionResult<TodoItem> GetTodoItemById(int id)
         {
-            // TODO: Your code here
-            await Task.Yield();
-
-            return null;
+            if (todoItemService.GetById(id) == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return todoItemService.GetById(id);
+            }
         }
 
         [HttpPost("")]
@@ -45,17 +49,17 @@ namespace todo_rest_api.Controllers
         public async Task<IActionResult> PutTodoItem(int id, TodoItem model)
         {
             // TODO: Your code here
-            await Task.Yield();
+            await System.Threading.Tasks.Task.Yield();
 
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<TodoItem>> DeleteTodoItemById(int id)
-        {
-            // TODO: Your code here
-            await Task.Yield();
+        [HttpPatch("{id}")]
 
+        [HttpDelete("{id}")]
+        public ActionResult<TodoItem> DeleteTodoItemById(int id)
+        {
+            todoItemService.DeleteById(id);
             return null;
         }
     }

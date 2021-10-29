@@ -9,6 +9,7 @@ namespace todo_rest_api
         public string Description { get; set; }
         public DateTime? DueDate { get; set; }
         public bool Done { get; set; }
+        public int ListId { get; set; }
     }
 }
     
