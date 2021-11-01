@@ -18,6 +18,7 @@ namespace todo_rest_api
 
             return item;
         }
+        
         public List<TodoItem> GetAll()
         {
             return todoItems;
@@ -32,7 +33,38 @@ namespace todo_rest_api
             }
             return null;
         }
+        
+        public TodoItem PutItem(int id, TodoItem todoItem)
+        {
+            int index = -1;
+            todoItem.Id = id;
+            foreach (var item in todoItems)
+            {
+                if (item.Id == id)
+                index = todoItems.IndexOf(item);
+                break;
+            }
+            todoItems[index] = todoItem;
+            return todoItem;
+        }
 
+        public TodoItem PatchItem(int id, TodoItem todoItem)
+        {
+            int index = -1;
+            todoItem.Id = id;
+            foreach (var item in todoItems)
+            {
+                if (item.Id == id)
+                index = todoItems.IndexOf(item);
+                break;
+            }
+            if (todoItem.Id != 0)
+            {
+                todoItems[index] = todoItem;
+            }
+            return todoItem;
+        }
+        
         public void DeleteById(int id)
         {
             foreach (var item in todoItems)

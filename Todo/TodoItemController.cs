@@ -46,15 +46,13 @@ namespace todo_rest_api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTodoItem(int id, TodoItem model)
+        public ActionResult<TodoItem> PutTodoItem(int id, TodoItem todoItem)
         {
-            // TODO: Your code here
-            await System.Threading.Tasks.Task.Yield();
-
-            return NoContent();
+            todoItem = todoItemService.PutItem(id, todoItem);
+            return todoItem;
         }
 
-        [HttpPatch("{id}")]
+        //[HttpPatch("{id}")]
 
         [HttpDelete("{id}")]
         public ActionResult<TodoItem> DeleteTodoItemById(int id)
